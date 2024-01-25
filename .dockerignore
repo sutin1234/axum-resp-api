@@ -1,0 +1,24 @@
+# Ignore generated build artifacts
+target/
+
+# Ignore test-related files
+.cargo/target/
+**/tests/*
+
+# Ignore development environment files
+.env
+.env.example
+
+# Ignore project-specific ignore files
+**/.gitignore
+
+# Ignore cache directories
+.cargo/cache/
+.cargo/registry/
+
+# Ignore IDE-specific files
+.idea/
+
+# Ignore editor backup files
+*~
+*.swp

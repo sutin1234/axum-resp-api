@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JetClientState">
+    <option name="folders">
+      <list>
+        <folderState>
+          <option name="id" value="a24c60fa-348f-4fa3-968d-2ce60496eada" />
+          <option name="name" value="rust axum" />
+          <option name="requests">
+            <list>
+              <requestState>
+                <option name="id" value="c69d3a0e-01ce-4e52-9bc5-047157bef435" />
+                <option name="method" value="GET" />
+                <option name="name" value="/" />
+                <option name="url" value="http://127.0.0.1:3000/" />
+              </requestState>
+            </list>
+          </option>
+          <option name="sortWeight" value="1000000" />
+          <option name="syncProperties">
+            <synchronizationPropertiesState>
+              <option name="folderPath" value="$PROJECT_DIR$/.jetclient" />
+            </synchronizationPropertiesState>
+          </option>
+        </folderState>
+      </list>
+    </option>
+    <option name="id" value="ec687114-57cd-462f-98a8-f2c133defe4f" />
+  </component>
+</project>

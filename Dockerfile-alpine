@@ -1,0 +1,30 @@
+FROM rust:latest AS builder
+
+# Install additional tools if needed (e.g., for musl builds)
+# RUN apt-get update && apt-get install -y <package>
+
+# Add any rustup targets you need (e.g., for cross-compilation)
+RUN /rust/bin/rustup target add x86_64-unknown-linux-musl
+
+# Copy your project directory into the container
+WORKDIR /app
+COPY Cargo.toml .
+COPY src/ .
+
+# Build the project in release mode for Linux
+RUN cargo build --release --target x86_64-unknown-linux-musl
+
+# (Optional) Copy the built binary to a specific location
+COPY target/x86_64-unknown-linux-musl/release/axum-resp /.
+
+# Build a slim final image based on the builder image
+FROM alpine:latest
+
+# Copy the built binary from the builder image
+COPY --from=builder /output /app
+
+# Expose the port your binary uses (if applicable)
+EXPOSE 3000
+
+# Set the entrypoint to your binary
+ENTRYPOINT ["/app/axum-resp"]

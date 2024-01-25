@@ -1,0 +1,29 @@
+# State 1
+# FROM rust:latest as builder
+
+# RUN rustup target add x86_64-unknown-linux-musl
+# RUN apt update && apt install -y musl-tools musl-dev
+# RUN update-ca-certificates
+
+# WORKDIR /app
+
+# COPY . .
+
+# RUN cargo build --release
+
+# State 2
+# FROM gcr.io/distroless/cc
+# FROM mcr.microsoft.com/devcontainers/rust:latest
+# FROM gcr.io/distroless/static-debian11
+# FROM scratch
+
+FROM gcr.io/distroless/static-debian12
+
+
+WORKDIR /app
+COPY ./target/release/axum-resp .
+
+# ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
+
+# COPY --from=builder /app/target/release/axum-resp ./
+CMD ["./axum-resp"]
