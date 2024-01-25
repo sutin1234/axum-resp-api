@@ -1,8 +1,7 @@
 FROM rust:1.68.2-slim-buster as backend
 
-RUN apt update && apt install -y --no-install-recommends clang llvm perl
-RUN apt install -y musl-tools musl-dev pkg-config
-RUN apt install -y openssl libssl-dev
+RUN apt install -y build-essential libssl-dev librust-openssl-sys-dev && \
+    apt-mark auto build-essential
 RUN update-ca-certificates
 RUN rustup target add x86_64-unknown-linux-musl
 WORKDIR /app/backend
