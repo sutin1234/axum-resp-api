@@ -10,7 +10,7 @@ WORKDIR /app/backend
 COPY . /app/backend
 ENV CC_x86_64_unknown_linux_musl=clang
 ENV RUST_BACKTRACE=full
-RUN cargo clean && cargo build --target x86_64-unknown-linux-musl --release
+RUN cargo clean && cargo build --release
 
 # RUN \
 # --mount=type=cache,target=/app/backend/target,rw \
