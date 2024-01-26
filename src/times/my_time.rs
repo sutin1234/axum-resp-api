@@ -20,15 +20,12 @@ pub fn get_local_time() {
     let day_30_added = add_day_from_now(day);
     println!("{} day added: {}", day, day_30_added);
 
-    let add_tz = add_tz(
-        Local::now()
-            .format("%Y-%m-%d %H:%M:%S")
-            .to_string()
-            .as_str(),
-        "Asia/Bangkok",
-        "%Y-%m-%d %H:%M:%S",
-    );
-    println!("date add timezone: {}", add_tz);
+    // let add_tz = add_tz(
+    //     Local::now().format("%Y-%m-%d %H:%M:%S").to_string(),
+    //     "Asia/Bangkok",
+    //     "%Y-%m-%d %H:%M:%S",
+    // );
+    // println!("date add timezone: {}", add_tz);
 }
 
 fn get_time_format(format: &str) -> String {
@@ -57,10 +54,10 @@ fn add_day_from_now(num_days: i64) -> String {
     return format!("{}", thirty_days_later.format("%Y-%m-%d"));
 }
 
-fn add_tz(dt: &str, tz: &str, format: &str) -> String {
-    let local = NaiveDateTime::parse_from_str(dt, format).unwrap();
-    let tz: Tz = tz.parse().unwrap();
-    let utc_datetime = local.and_local_timezone(tz).unwrap();
+// fn add_tz(dt: String, tz: &str, format: &str) -> String {
+//     let local = NaiveDateTime::parse_from_str(dt, format).unwrap();
+//     let tz: Tz = tz.parse().unwrap();
+//     let utc_datetime = local.and_local_timezone(tz).unwrap();
 
-    return format!("{}", utc_datetime.format(format));
-}
+//     return format!("{}", utc_datetime.format(format));
+// }

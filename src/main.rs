@@ -6,14 +6,20 @@ use axum::{
     Router,
 };
 use dotenv::dotenv;
+use tracing::info;
 use tracing_subscriber::FmtSubscriber;
 
 use crate::{
-    handlers::{index_handler::index_handler, pdf_handler::pdf_handler},
+    config::email_config::init_email_config,
+    handlers::{
+        email_handler::send_email_handler, index_handler::index_handler, pdf_handler::pdf_handler,
+    },
     middlewares::my_middleware::custom_fn_middleware,
 };
 
 mod api_response;
+mod config;
+mod email;
 mod error_response;
 mod handlers;
 mod middlewares;
@@ -26,6 +32,7 @@ async fn main() {
 
     // load ENV
     dotenv().ok();
+    init_email_config().await;
 
     // middleware
     let layer_middleware = middleware::from_fn(custom_fn_middleware);
@@ -34,14 +41,15 @@ async fn main() {
         .route("/", get(index_handler))
         .route("/", post(index_handler))
         .route("/pdf", post(pdf_handler))
+        .route("/send_email", post(send_email_handler))
         .layer(layer_middleware);
 
     let addr = SocketAddr::from(([0, 0, 0, 0], 3000));
     let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
-    println!("listening on {}", addr);
+    info!("listening on http://{}", addr);
 
     // timing
-    times::my_time::get_local_time();
+    // times::my_time::get_local_time();
 
     axum::serve(listener, app)
         .with_graceful_shutdown(shutdown_signal())
